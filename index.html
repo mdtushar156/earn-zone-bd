@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earn Zone BD</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1100px;
+      margin: 25px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 5px;
+      background: #2563eb;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .secondary {
+      background: #111827;
+    }
+
+    .danger {
+      background: #dc2626;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .menu button {
+      width: 100%;
+      margin: 0;
+    }
+
+    .balance {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .balance h2 {
+      font-size: 35px;
+      margin-top: 10px;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      background: #eff6ff;
+      color: #1d4ed8;
+      display: none;
+    }
+
+    .success {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .error {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .section-title {
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .task {
+      border: 1px solid #e5e7eb;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .task h3 {
+      margin-bottom: 8px;
+    }
+
+    .task p {
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+
+    @media(max-width:600px) {
+      .menu {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Earn Zone BD</h1>
+  <p>Earn • Complete Tasks • Refer • Withdraw</p>
+</div>
+
+<div class="container">
+
+  <!-- HOME -->
+  <section id="homeSection">
+
+    <div class="card hero">
+      <h2>Welcome to Earn Zone BD</h2>
+      <p>
+        Complete available tasks, earn rewards and manage your account easily.
+      </p>
+
+      <button onclick="showSection('loginSection')">
+        Login
+      </button>
+
+      <button class="secondary" onclick="showSection('registerSection')">
+        Create Account
+      </button>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Why Earn Zone BD?</h2>
+      <p>✓ Simple user dashboard</p>
+      <br>
+      <p>✓ Task based earning system</p>
+      <br>
+      <p>✓ Referral system</p>
+      <br>
+      <p>✓ Deposit & withdrawal system</p>
+      <br>
+      <p>✓ Secure account system</p>
+    </div>
+
+  </section>
+
+
+  <!-- REGISTER -->
+  <section id="registerSection" class="hidden">
+
+    <div class="card">
+
+      <h2 class="section-title">Create Account</h2>
+
+      <div id="registerMessage" class="message"></div>
+
+      <label>Username</label>
+      <input id="registerUsername" type="text" placeholder="Enter username">
+
+      <label>Full Name</label>
+      <input id="registerName" type="text" placeholder="Enter full name">
+
+      <label>Email</label>
+      <input id="registerEmail" type="email" placeholder="Enter email">
+
+      <label>Password</label>
+      <input id="registerPassword" type="password" placeholder="Create password">
+
+      <button onclick="registerUser()">
+        Create Account
+      </button>
+
+      <button class="secondary" onclick="showSection('loginSection')">
+        Already have an account?
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- LOGIN -->
+  <section id="loginSection" class="hidden">
+
+    <div class="card">
+
+      <h2 class="section-title">Login</h2>
+
+      <div id="loginMessage" class="message"></div>
+
+      <label>Email</label>
+      <input id="loginEmail" type="email" placeholder="Enter email">
+
+      <label>Password</label>
+      <input id="loginPassword" type="password" placeholder="Enter password">
+
+      <button onclick="loginUser()">
+        Login
+      </button>
+
+      <button class="secondary" onclick="showSection('registerSection')">
+        Create Account
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+  <section id="dashboardSection" class="hidden">
+
+    <div class="balance">
+      <p>Available Balance</p>
+      <h2 id="balanceAmount">৳0.00</h2>
+    </div>
+
+    <div class="card">
+      <h2 id="welcomeUser">Welcome</h2>
+      <p id="userEmail"></p>
+
+      <div class="menu">
+
+        <button onclick="showDashboardPage('balancePage')">
+          💰 Balance
+        </button>
+
+        <button onclick="showDashboardPage('tasksPage')">
+          🎯 Tasks
+        </button>
+
+        <button onclick="showDashboardPage('depositPage')">
+          💳 Deposit
+        </button>
+
+        <button onclick="showDashboardPage('withdrawPage')">
+          💸 Withdraw
+        </button>
+
+        <button onclick="showDashboardPage('referralPage')">
+          👥 Referral
+        </button>
+
+        <button onclick="showDashboardPage('walletPage')">
+          👛 Wallet
+        </button>
+
+        <button onclick="showDashboardPage('historyPage')">
+          📜 History
+        </button>
+
+        <button onclick="showDashboardPage('supportPage')">
+          🛟 Support
+        </button>
+
+      </div>
+
+      <br>
+
+      <button class="danger" onclick="logoutUser()">
+        Logout
+      </button>
+
+    </div>
+
+
+    <!-- BALANCE -->
+    <div id="balancePage" class="card dashboardPage hidden">
+      <h2 class="section-title">💰 Balance</h2>
+      <p>Your current balance:</p>
+      <h2 id="balancePageAmount">৳0.00</h2>
+    </div>
+
+
+    <!-- TASKS -->
+    <div id="tasksPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">🎯 Available Tasks</h2>
+
+      <div id="taskList">
+        <p>Loading tasks...</p>
+      </div>
+
+    </div>
+
+
+    <!-- DEPOSIT -->
+    <div id="depositPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">💳 Deposit</h2>
+
+      <p>
+        Deposit instructions will appear here.
+      </p>
+
+      <label>Amount (BDT)</label>
+      <input id="depositAmount" type="number" placeholder="Enter amount">
+
+      <label>Payment Method</label>
+      <select id="depositMethod">
+        <option value="bKash">bKash</option>
+      </select>
+
+      <label>Transaction ID</label>
+      <input id="depositTransaction" type="text" placeholder="Enter transaction ID">
+
+      <button onclick="submitDeposit()">
+        Submit Deposit
+      </button>
+
+      <div id="depositMessage" class="message"></div>
+
+    </div>
+
+
+    <!-- WITHDRAW -->
+    <div id="withdrawPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">💸 Withdraw</h2>
+
+      <label>Amount (BDT)</label>
+      <input id="withdrawAmount" type="number" placeholder="Enter amount">
+
+      <label>Payment Method</label>
+      <select id="withdrawMethod">
+        <option value="bKash">bKash</option>
+        <option value="Nagad">Nagad</option>
+      </select>
+
+      <label>Account Number</label>
+      <input id="withdrawAccount" type="text" placeholder="01XXXXXXXXX">
+
+      <button onclick="submitWithdrawal()">
+        Submit Withdrawal
+      </button>
+
+      <div id="withdrawMessage" class="message"></div>
+
+    </div>
+
+
+    <!-- REFERRAL -->
+    <div id="referralPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">👥 Referral</h2>
+
+      <p>Your Referral Code:</p>
+
+      <h2 id="referralCode">Loading...</h2>
+
+      <br>
+
+      <p>Share your referral code with others.</p>
+
+    </div>
+
+
+    <!-- WALLET -->
+    <div id="walletPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">👛 Wallet</h2>
+
+      <p>
+        Your wallet information will appear here.
+      </p>
+
+    </div>
+
+
+    <!-- HISTORY -->
+    <div id="historyPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">📜 History</h2>
+
+      <p>
+        Transaction history will appear here.
+      </p>
+
+    </div>
+
+
+    <!-- SUPPORT -->
+    <div id="supportPage" class="card dashboardPage hidden">
+
+      <h2 class="section-title">🛟 Support</h2>
+
+      <p>
+        Need help? Contact our support team.
+      </p>
+
+      <br>
+
+      <button onclick="window.open('https://t.me/', '_blank')">
+        Telegram Channel
+      </button>
+
+      <button onclick="window.open('https://t.me/', '_blank')">
+        Telegram Group
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<div class="footer">
+  <p>© 2026 Earn Zone BD</p>
+</div>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONNECTION
+   ===================================================== */
+
+const SUPABASE_URL =
+"https://ztwdtmyvrzhtksaooqtb.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"sb_publishable_AwHi9Qun4R7pfMq2MQp1MA_aVXMS3he";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
+/* =====================================================
+   SECTION CONTROL
+   ===================================================== */
+
+function showSection(sectionId) {
+
+  const sections = [
+    "homeSection",
+    "registerSection",
+    "loginSection",
+    "dashboardSection"
+  ];
+
+  sections.forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+
+  document.getElementById(sectionId).classList.remove("hidden");
+}
+
+
+/* =====================================================
+   DASHBOARD PAGE
+   ===================================================== */
+
+function showDashboardPage(pageId) {
+
+  const pages =
+    document.querySelectorAll(".dashboardPage");
+
+  pages.forEach(page => {
+    page.classList.add("hidden");
+  });
+
+  document.getElementById(pageId)
+    .classList.remove("hidden");
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showMessage(elementId, message, type = "") {
+
+  const element =
+    document.getElementById(elementId);
+
+  element.innerText = message;
+
+  element.className = "message";
+
+  if(type === "success") {
+    element.classList.add("success");
+  }
+
+  if(type === "error") {
+    element.classList.add("error");
+  }
+
+  element.style.display = "block";
+}
+
+
+/* =====================================================
+   REGISTER
+   ===================================================== */
+
+async function registerUser() {
+
+  const username =
+    document.getElementById("registerUsername").value.trim();
+
+  const fullName =
+    document.getElementById("registerName").value.trim();
+
+  const email =
+    document.getElementById("registerEmail").value.trim();
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+  if(!username || !fullName || !email || !password) {
+
+    showMessage(
+      "registerMessage",
+      "Please fill in all fields.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(password.length < 6) {
+
+    showMessage(
+      "registerMessage",
+      "Password must be at least 6 characters.",
+      "error"
+    );
+
+    return;
+  }
+
+  showMessage(
+    "registerMessage",
+    "Creating your account..."
+  );
+
+  const { data, error } =
+    await supabaseClient.auth.signUp({
+
+      email: email,
+
+      password: password,
+
+      options: {
+
+        data: {
+          username: username,
+          full_name: fullName
+        }
+
+      }
+
+    });
+
+
+  if(error) {
+
+    showMessage(
+      "registerMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "registerMessage",
+    "Account created successfully. Please check your email if email confirmation is enabled.",
+    "success"
+  );
+
+}
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+async function loginUser() {
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+
+  if(!email || !password) {
+
+    showMessage(
+      "loginMessage",
+      "Please enter email and password.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "loginMessage",
+    "Logging in..."
+  );
+
+
+  const { data, error } =
+    await supabaseClient.auth.signInWithPassword({
+
+      email: email,
+
+      password: password
+
+    });
+
+
+  if(error) {
+
+    showMessage(
+      "loginMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  await loadUserDashboard();
+
+}
+
+
+/* =====================================================
+   LOAD USER
+   ===================================================== */
+
+async function loadUserDashboard() {
+
+  const {
+    data: {
+      user
+    }
+  } = await supabaseClient.auth.getUser();
+
+
+  if(!user) {
+
+    showSection("loginSection");
+
+    return;
+  }
+
+
+  showSection("dashboardSection");
+
+
+  document.getElementById("userEmail")
+    .innerText = user.email || "";
+
+
+  await loadProfile(user.id);
+
+  await loadWallet(user.id);
+
+  await loadTasks();
+
+}
+
+
+/* =====================================================
+   PROFILE
+   ===================================================== */
+
+async function loadProfile(userId) {
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("profiles")
+
+    .select("*")
+
+    .eq("id", userId)
+
+    .single();
+
+
+  if(error) {
+
+    console.log(error);
+
+    return;
+  }
+
+
+  document.getElementById("welcomeUser")
+    .innerText =
+      "Welcome, " +
+      (data.username || data.full_name || "User");
+
+
+  document.getElementById("referralCode")
+    .innerText =
+      data.referral_code || "N/A";
+
+}
+
+
+/* =====================================================
+   WALLET
+   ===================================================== */
+
+async function loadWallet(userId) {
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("wallets")
+
+    .select("*")
+
+    .eq("user_id", userId)
+
+    .single();
+
+
+  if(error) {
+
+    console.log(error);
+
+    return;
+  }
+
+
+  const balance =
+    Number(data.balance || 0).toFixed(2);
+
+
+  document.getElementById("balanceAmount")
+    .innerText = "৳" + balance;
+
+
+  document.getElementById("balancePageAmount")
+    .innerText = "৳" + balance;
+
+}
+
+
+/* =====================================================
+   TASKS
+   ===================================================== */
+
+async function loadTasks() {
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("tasks")
+
+    .select("*")
+
+    .eq("is_active", true)
+
+    .order("created_at", {
+      ascending: false
+    });
+
+
+  const list =
+    document.getElementById("taskList");
+
+
+  if(error) {
+
+    list.innerHTML =
+      "<p>Unable to load tasks.</p>";
+
+    console.log(error);
+
+    return;
+  }
+
+
+  if(!data || data.length === 0) {
+
+    list.innerHTML =
+      "<p>No active tasks available.</p>";
+
+    return;
+  }
+
+
+  list.innerHTML = "";
+
+
+  data.forEach(task => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "task";
+
+
+    div.innerHTML = `
+
+      <h3>${escapeHtml(task.title)}</h3>
+
+      <p>${escapeHtml(task.description || "")}</p>
+
+      <p>
+        <strong>Reward:</strong>
+        ৳${Number(task.reward || 0).toFixed(2)}
+      </p>
+
+      ${
+        task.task_url
+        ?
+        `<button onclick="window.open('${encodeURI(task.task_url)}','_blank')">
+          Open Task
+        </button>`
+        :
+        ""
+      }
+
+    `;
+
+
+    list.appendChild(div);
+
+  });
+
+}
+
+
+/* =====================================================
+   DEPOSIT
+   ===================================================== */
+
+async function submitDeposit() {
+
+  const {
+    data: {
+      user
+    }
+  } = await supabaseClient.auth.getUser();
+
+
+  if(!user) {
+
+    showSection("loginSection");
+
+    return;
+  }
+
+
+  const amount =
+    Number(
+      document.getElementById("depositAmount").value
+    );
+
+
+  const method =
+    document.getElementById("depositMethod").value;
+
+
+  const transactionId =
+    document.getElementById("depositTransaction")
+      .value.trim();
+
+
+  if(!amount || amount <= 0 || !transactionId) {
+
+    showMessage(
+      "depositMessage",
+      "Please enter amount and transaction ID.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const {
+    error
+  } = await supabaseClient
+
+    .from("deposits")
+
+    .insert({
+
+      user_id: user.id,
+
+      amount: amount,
+
+      payment_method: method,
+
+      transaction_id: transactionId,
+
+      status: "pending"
+
+    });
+
+
+  if(error) {
+
+    showMessage(
+      "depositMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "depositMessage",
+    "Deposit request submitted successfully. Admin will review it.",
+    "success"
+  );
+
+
+  document.getElementById("depositAmount").value = "";
+
+  document.getElementById("depositTransaction").value = "";
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+   ===================================================== */
+
+async function submitWithdrawal() {
+
+  const {
+    data: {
+      user
+    }
+  } = await supabaseClient.auth.getUser();
+
+
+  if(!user) {
+
+    showSection("loginSection");
+
+    return;
+  }
+
+
+  const amount =
+    Number(
+      document.getElementById("withdrawAmount").value
+    );
+
+
+  const method =
+    document.getElementById("withdrawMethod").value;
+
+
+  const account =
+    document.getElementById("withdrawAccount")
+      .value.trim();
+
+
+  if(!amount || amount <= 0 || !account) {
+
+    showMessage(
+      "withdrawMessage",
+      "Please enter all withdrawal information.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const {
+    data: wallet,
+    error: walletError
+  } = await supabaseClient
+
+    .from("wallets")
+
+    .select("balance")
+
+    .eq("user_id", user.id)
+
+    .single();
+
+
+  if(walletError) {
+
+    showMessage(
+      "withdrawMessage",
+      "Unable to check your balance.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(Number(wallet.balance) < amount) {
+
+    showMessage(
+      "withdrawMessage",
+      "Insufficient balance.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  const {
+    error
+  } = await supabaseClient
+
+    .from("withdrawals")
+
+    .insert({
+
+      user_id: user.id,
+
+      amount: amount,
+
+      payment_method: method,
+
+      account_number: account,
+
+      status: "pending"
+
+    });
+
+
+  if(error) {
+
+    showMessage(
+      "withdrawMessage",
+      error.message,
+      "error"
+    );
+
+    return;
+  }
+
+
+  showMessage(
+    "withdrawMessage",
+    "Withdrawal request submitted successfully.",
+    "success"
+  );
+
+
+  document.getElementById("withdrawAmount").value = "";
+
+  document.getElementById("withdrawAccount").value = "";
+
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+async function logoutUser() {
+
+  await supabaseClient.auth.signOut();
+
+  showSection("homeSection");
+
+}
+
+
+/* =====================================================
+   SECURITY HELPER
+   ===================================================== */
+
+function escapeHtml(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text || "";
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   CHECK EXISTING LOGIN
+   ===================================================== */
+
+async function checkLogin() {
+
+  const {
+    data: {
+      session
+    }
+  } = await supabaseClient.auth.getSession();
+
+
+  if(session) {
+
+    await loadUserDashboard();
+
+  } else {
+
+    showSection("homeSection");
+
+  }
+
+}
+
+
+checkLogin();
+
+
+/* =====================================================
+   AUTH STATE
+   ===================================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if(event === "SIGNED_OUT") {
+
+      showSection("homeSection");
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
