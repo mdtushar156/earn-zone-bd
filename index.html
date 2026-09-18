@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Earn Zone BD</title>
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -17,34 +16,34 @@
     }
 
     body {
-      background: #f4f7fb;
-      color: #172033;
+      background: #f5f7fb;
+      color: #111827;
     }
 
-    .header {
+    header {
       background: linear-gradient(135deg, #111827, #2563eb);
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 25px 15px;
     }
 
-    .header h1 {
-      font-size: 28px;
-      margin-bottom: 6px;
+    header h1 {
+      font-size: 30px;
+      margin-bottom: 7px;
     }
 
     .container {
-      width: 92%;
-      max-width: 1100px;
+      width: 94%;
+      max-width: 1000px;
       margin: 25px auto;
     }
 
     .card {
       background: white;
-      padding: 22px;
       border-radius: 16px;
+      padding: 22px;
       margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
     }
 
     .hero {
@@ -53,94 +52,75 @@
     }
 
     .hero h2 {
-      font-size: 30px;
+      font-size: 28px;
       margin-bottom: 12px;
     }
 
     .hero p {
       color: #64748b;
       margin-bottom: 20px;
+      line-height: 1.6;
     }
 
     button {
-      border: none;
-      padding: 13px 20px;
+      border: 0;
       border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
-      margin: 5px;
+      padding: 13px 18px;
       background: #2563eb;
       color: white;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 5px;
     }
 
     button:hover {
-      opacity: 0.9;
+      opacity: .9;
     }
 
-    .secondary {
+    .dark {
       background: #111827;
     }
 
-    .danger {
+    .red {
       background: #dc2626;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       width: 100%;
       padding: 13px;
-      margin: 8px 0 14px;
+      margin: 8px 0 15px;
       border: 1px solid #d1d5db;
       border-radius: 10px;
       outline: none;
+      font-size: 15px;
     }
 
-    input:focus, select:focus, textarea:focus {
+    input:focus,
+    select:focus,
+    textarea:focus {
       border-color: #2563eb;
     }
 
     label {
       font-weight: bold;
       display: block;
-      margin-top: 5px;
+      margin-top: 8px;
     }
 
     .hidden {
       display: none !important;
     }
 
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .menu button {
-      width: 100%;
-      margin: 0;
-    }
-
-    .balance {
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      padding: 25px;
-      border-radius: 16px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .balance h2 {
-      font-size: 35px;
-      margin-top: 10px;
-    }
-
     .message {
+      display: none;
       padding: 12px;
-      border-radius: 8px;
-      margin: 10px 0;
+      border-radius: 10px;
+      margin: 12px 0;
       background: #eff6ff;
       color: #1d4ed8;
-      display: none;
+      line-height: 1.5;
     }
 
     .success {
@@ -153,15 +133,40 @@
       color: #b91c1c;
     }
 
-    .section-title {
-      margin-bottom: 15px;
-      font-size: 22px;
+    .dashboard-menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .dashboard-menu button {
+      margin: 0;
+      width: 100%;
+    }
+
+    .balance-box {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      text-align: center;
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .balance-box p {
+      opacity: .9;
+    }
+
+    .balance-box h2 {
+      font-size: 36px;
+      margin-top: 8px;
     }
 
     .task {
       border: 1px solid #e5e7eb;
-      padding: 15px;
       border-radius: 12px;
+      padding: 15px;
       margin-bottom: 12px;
     }
 
@@ -171,22 +176,34 @@
 
     .task p {
       color: #64748b;
-      margin-bottom: 10px;
+      line-height: 1.5;
+      margin-bottom: 8px;
     }
 
-    .footer {
+    .code-box {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      margin: 12px 0;
+    }
+
+    footer {
       text-align: center;
       padding: 30px;
       color: #64748b;
     }
 
-    @media(max-width:600px) {
-      .menu {
+    @media (max-width: 600px) {
+      .dashboard-menu {
         grid-template-columns: 1fr 1fr;
       }
 
       .hero h2 {
-        font-size: 25px;
+        font-size: 24px;
       }
     }
   </style>
@@ -194,153 +211,121 @@
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
+<header>
   <h1>Earn Zone BD</h1>
-  <p>Earn • Complete Tasks • Refer • Withdraw</p>
-</div>
+  <p>Earn • Tasks • Referral • Withdraw</p>
+</header>
 
 <div class="container">
 
   <!-- HOME -->
-  <section id="homeSection">
+  <div id="home" class="card hero">
+    <h2>Welcome to Earn Zone BD</h2>
+    <p>
+      Complete tasks, manage your wallet and earn rewards.
+    </p>
 
-    <div class="card hero">
-      <h2>Welcome to Earn Zone BD</h2>
-      <p>
-        Complete available tasks, earn rewards and manage your account easily.
-      </p>
-
-      <button onclick="showSection('loginSection')">
-        Login
-      </button>
-
-      <button class="secondary" onclick="showSection('registerSection')">
-        Create Account
-      </button>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">Why Earn Zone BD?</h2>
-      <p>✓ Simple user dashboard</p>
-      <br>
-      <p>✓ Task based earning system</p>
-      <br>
-      <p>✓ Referral system</p>
-      <br>
-      <p>✓ Deposit & withdrawal system</p>
-      <br>
-      <p>✓ Secure account system</p>
-    </div>
-
-  </section>
+    <button onclick="openPage('login')">Login</button>
+    <button class="dark" onclick="openPage('register')">
+      Create Account
+    </button>
+  </div>
 
 
   <!-- REGISTER -->
-  <section id="registerSection" class="hidden">
+  <div id="register" class="card hidden">
 
-    <div class="card">
+    <h2>Create Account</h2>
 
-      <h2 class="section-title">Create Account</h2>
+    <div id="registerMsg" class="message"></div>
 
-      <div id="registerMessage" class="message"></div>
+    <label>Username</label>
+    <input id="regUsername" type="text" placeholder="Username">
 
-      <label>Username</label>
-      <input id="registerUsername" type="text" placeholder="Enter username">
+    <label>Full Name</label>
+    <input id="regName" type="text" placeholder="Full name">
 
-      <label>Full Name</label>
-      <input id="registerName" type="text" placeholder="Enter full name">
+    <label>Email</label>
+    <input id="regEmail" type="email" placeholder="Email address">
 
-      <label>Email</label>
-      <input id="registerEmail" type="email" placeholder="Enter email">
+    <label>Password</label>
+    <input id="regPassword" type="password" placeholder="Minimum 6 characters">
 
-      <label>Password</label>
-      <input id="registerPassword" type="password" placeholder="Create password">
+    <button onclick="registerUser()">Create Account</button>
 
-      <button onclick="registerUser()">
-        Create Account
-      </button>
+    <button class="dark" onclick="openPage('login')">
+      Already have account
+    </button>
 
-      <button class="secondary" onclick="showSection('loginSection')">
-        Already have an account?
-      </button>
-
-    </div>
-
-  </section>
+  </div>
 
 
   <!-- LOGIN -->
-  <section id="loginSection" class="hidden">
+  <div id="login" class="card hidden">
 
-    <div class="card">
+    <h2>Login</h2>
 
-      <h2 class="section-title">Login</h2>
+    <div id="loginMsg" class="message"></div>
 
-      <div id="loginMessage" class="message"></div>
+    <label>Email</label>
+    <input id="loginEmail" type="email" placeholder="Email address">
 
-      <label>Email</label>
-      <input id="loginEmail" type="email" placeholder="Enter email">
+    <label>Password</label>
+    <input id="loginPassword" type="password" placeholder="Password">
 
-      <label>Password</label>
-      <input id="loginPassword" type="password" placeholder="Enter password">
+    <button onclick="loginUser()">Login</button>
 
-      <button onclick="loginUser()">
-        Login
-      </button>
+    <button class="dark" onclick="openPage('register')">
+      Create Account
+    </button>
 
-      <button class="secondary" onclick="showSection('registerSection')">
-        Create Account
-      </button>
-
-    </div>
-
-  </section>
+  </div>
 
 
   <!-- DASHBOARD -->
-  <section id="dashboardSection" class="hidden">
+  <div id="dashboard" class="hidden">
 
-    <div class="balance">
+    <div class="balance-box">
       <p>Available Balance</p>
-      <h2 id="balanceAmount">৳0.00</h2>
+      <h2 id="balance">৳0.00</h2>
     </div>
 
     <div class="card">
-      <h2 id="welcomeUser">Welcome</h2>
-      <p id="userEmail"></p>
 
-      <div class="menu">
+      <h2 id="welcome">Welcome</h2>
+      <p id="email"></p>
 
-        <button onclick="showDashboardPage('balancePage')">
+      <div class="dashboard-menu">
+
+        <button onclick="showPanel('balancePanel')">
           💰 Balance
         </button>
 
-        <button onclick="showDashboardPage('tasksPage')">
+        <button onclick="showPanel('tasksPanel')">
           🎯 Tasks
         </button>
 
-        <button onclick="showDashboardPage('depositPage')">
+        <button onclick="showPanel('depositPanel')">
           💳 Deposit
         </button>
 
-        <button onclick="showDashboardPage('withdrawPage')">
+        <button onclick="showPanel('withdrawPanel')">
           💸 Withdraw
         </button>
 
-        <button onclick="showDashboardPage('referralPage')">
+        <button onclick="showPanel('referralPanel')">
           👥 Referral
         </button>
 
-        <button onclick="showDashboardPage('walletPage')">
+        <button onclick="showPanel('walletPanel')">
           👛 Wallet
         </button>
 
-        <button onclick="showDashboardPage('historyPage')">
+        <button onclick="showPanel('historyPanel')">
           📜 History
         </button>
 
-        <button onclick="showDashboardPage('supportPage')">
+        <button onclick="showPanel('supportPanel')">
           🛟 Support
         </button>
 
@@ -348,7 +333,7 @@
 
       <br>
 
-      <button class="danger" onclick="logoutUser()">
+      <button class="red" onclick="logoutUser()">
         Logout
       </button>
 
@@ -356,63 +341,71 @@
 
 
     <!-- BALANCE -->
-    <div id="balancePage" class="card dashboardPage hidden">
-      <h2 class="section-title">💰 Balance</h2>
-      <p>Your current balance:</p>
-      <h2 id="balancePageAmount">৳0.00</h2>
+    <div id="balancePanel" class="card panel hidden">
+
+      <h2>💰 Balance</h2>
+
+      <br>
+
+      <p>Your available balance:</p>
+
+      <h2 id="balance2">৳0.00</h2>
+
     </div>
 
 
     <!-- TASKS -->
-    <div id="tasksPage" class="card dashboardPage hidden">
+    <div id="tasksPanel" class="card panel hidden">
 
-      <h2 class="section-title">🎯 Available Tasks</h2>
+      <h2>🎯 Available Tasks</h2>
+
+      <br>
 
       <div id="taskList">
-        <p>Loading tasks...</p>
+        Loading tasks...
       </div>
 
     </div>
 
 
     <!-- DEPOSIT -->
-    <div id="depositPage" class="card dashboardPage hidden">
+    <div id="depositPanel" class="card panel hidden">
 
-      <h2 class="section-title">💳 Deposit</h2>
+      <h2>💳 Deposit</h2>
 
-      <p>
-        Deposit instructions will appear here.
-      </p>
+      <br>
 
-      <label>Amount (BDT)</label>
+      <div id="depositInfo">
+        Loading payment information...
+      </div>
+
+      <label>Amount</label>
       <input id="depositAmount" type="number" placeholder="Enter amount">
 
-      <label>Payment Method</label>
-      <select id="depositMethod">
-        <option value="bKash">bKash</option>
-      </select>
-
       <label>Transaction ID</label>
-      <input id="depositTransaction" type="text" placeholder="Enter transaction ID">
+      <input id="depositTxn" type="text" placeholder="Enter transaction ID">
 
       <button onclick="submitDeposit()">
         Submit Deposit
       </button>
 
-      <div id="depositMessage" class="message"></div>
+      <div id="depositMsg" class="message"></div>
 
     </div>
 
 
     <!-- WITHDRAW -->
-    <div id="withdrawPage" class="card dashboardPage hidden">
+    <div id="withdrawPanel" class="card panel hidden">
 
-      <h2 class="section-title">💸 Withdraw</h2>
+      <h2>💸 Withdraw</h2>
 
-      <label>Amount (BDT)</label>
+      <br>
+
+      <label>Amount</label>
       <input id="withdrawAmount" type="number" placeholder="Enter amount">
 
       <label>Payment Method</label>
+
       <select id="withdrawMethod">
         <option value="bKash">bKash</option>
         <option value="Nagad">Nagad</option>
@@ -421,191 +414,195 @@
       <label>Account Number</label>
       <input id="withdrawAccount" type="text" placeholder="01XXXXXXXXX">
 
-      <button onclick="submitWithdrawal()">
+      <button onclick="submitWithdraw()">
         Submit Withdrawal
       </button>
 
-      <div id="withdrawMessage" class="message"></div>
+      <div id="withdrawMsg" class="message"></div>
 
     </div>
 
 
     <!-- REFERRAL -->
-    <div id="referralPage" class="card dashboardPage hidden">
+    <div id="referralPanel" class="card panel hidden">
 
-      <h2 class="section-title">👥 Referral</h2>
-
-      <p>Your Referral Code:</p>
-
-      <h2 id="referralCode">Loading...</h2>
+      <h2>👥 Referral</h2>
 
       <br>
 
-      <p>Share your referral code with others.</p>
+      <p>Your Referral Code:</p>
+
+      <div class="code-box" id="referralCode">
+        Loading...
+      </div>
 
     </div>
 
 
     <!-- WALLET -->
-    <div id="walletPage" class="card dashboardPage hidden">
+    <div id="walletPanel" class="card panel hidden">
 
-      <h2 class="section-title">👛 Wallet</h2>
+      <h2>👛 Wallet</h2>
 
-      <p>
-        Your wallet information will appear here.
-      </p>
+      <br>
+
+      <p>Wallet balance:</p>
+
+      <h2 id="walletBalance">৳0.00</h2>
 
     </div>
 
 
     <!-- HISTORY -->
-    <div id="historyPage" class="card dashboardPage hidden">
+    <div id="historyPanel" class="card panel hidden">
 
-      <h2 class="section-title">📜 History</h2>
+      <h2>📜 History</h2>
 
-      <p>
+      <br>
+
+      <div id="historyList">
         Transaction history will appear here.
-      </p>
+      </div>
 
     </div>
 
 
     <!-- SUPPORT -->
-    <div id="supportPage" class="card dashboardPage hidden">
+    <div id="supportPanel" class="card panel hidden">
 
-      <h2 class="section-title">🛟 Support</h2>
-
-      <p>
-        Need help? Contact our support team.
-      </p>
+      <h2>🛟 Support</h2>
 
       <br>
 
-      <button onclick="window.open('https://t.me/', '_blank')">
+      <p>Contact our support team through Telegram.</p>
+
+      <br>
+
+      <button onclick="window.open('https://t.me/','_blank')">
         Telegram Channel
       </button>
 
-      <button onclick="window.open('https://t.me/', '_blank')">
+      <button onclick="window.open('https://t.me/','_blank')">
         Telegram Group
       </button>
 
     </div>
 
-  </section>
+  </div>
 
 </div>
 
-
-<div class="footer">
-  <p>© 2026 Earn Zone BD</p>
-</div>
+<footer>
+  © 2026 Earn Zone BD
+</footer>
 
 
 <script>
 
-/* =====================================================
+/* ==================================================
    SUPABASE CONNECTION
-   ===================================================== */
+   ================================================== */
 
 const SUPABASE_URL =
 "https://ztwdtmyvrzhtksaooqtb.supabase.co";
 
-const SUPABASE_ANON_KEY =
-"sb_publishable_AwHi9Qun4R7pfMq2MQp1MA_aVXMS3he";
+const SUPABASE_KEY =
+"YOUR_PUBLISHABLE_KEY";
+
 
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_ANON_KEY
+  SUPABASE_KEY
 );
 
 
-/* =====================================================
-   SECTION CONTROL
-   ===================================================== */
+/* ==================================================
+   PAGE CONTROL
+   ================================================== */
 
-function showSection(sectionId) {
+function openPage(page) {
 
-  const sections = [
-    "homeSection",
-    "registerSection",
-    "loginSection",
-    "dashboardSection"
-  ];
+  document.getElementById("home")
+    .classList.add("hidden");
 
-  sections.forEach(id => {
-    document.getElementById(id).classList.add("hidden");
-  });
+  document.getElementById("register")
+    .classList.add("hidden");
 
-  document.getElementById(sectionId).classList.remove("hidden");
-}
+  document.getElementById("login")
+    .classList.add("hidden");
 
+  document.getElementById("dashboard")
+    .classList.add("hidden");
 
-/* =====================================================
-   DASHBOARD PAGE
-   ===================================================== */
-
-function showDashboardPage(pageId) {
-
-  const pages =
-    document.querySelectorAll(".dashboardPage");
-
-  pages.forEach(page => {
-    page.classList.add("hidden");
-  });
-
-  document.getElementById(pageId)
+  document.getElementById(page)
     .classList.remove("hidden");
 }
 
 
-/* =====================================================
-   MESSAGE
-   ===================================================== */
+/* ==================================================
+   DASHBOARD PANELS
+   ================================================== */
 
-function showMessage(elementId, message, type = "") {
+function showPanel(panelId) {
 
-  const element =
-    document.getElementById(elementId);
+  document.querySelectorAll(".panel")
+    .forEach(panel => {
+      panel.classList.add("hidden");
+    });
 
-  element.innerText = message;
-
-  element.className = "message";
-
-  if(type === "success") {
-    element.classList.add("success");
-  }
-
-  if(type === "error") {
-    element.classList.add("error");
-  }
-
-  element.style.display = "block";
+  document.getElementById(panelId)
+    .classList.remove("hidden");
 }
 
 
-/* =====================================================
+/* ==================================================
+   MESSAGE
+   ================================================== */
+
+function message(id, text, type) {
+
+  const box = document.getElementById(id);
+
+  box.innerText = text;
+
+  box.className = "message";
+
+  if(type) {
+    box.classList.add(type);
+  }
+
+  box.style.display = "block";
+}
+
+
+/* ==================================================
    REGISTER
-   ===================================================== */
+   ================================================== */
 
 async function registerUser() {
 
   const username =
-    document.getElementById("registerUsername").value.trim();
+    document.getElementById("regUsername")
+      .value.trim();
 
-  const fullName =
-    document.getElementById("registerName").value.trim();
+  const name =
+    document.getElementById("regName")
+      .value.trim();
 
   const email =
-    document.getElementById("registerEmail").value.trim();
+    document.getElementById("regEmail")
+      .value.trim();
 
   const password =
-    document.getElementById("registerPassword").value;
+    document.getElementById("regPassword")
+      .value;
 
-  if(!username || !fullName || !email || !password) {
 
-    showMessage(
-      "registerMessage",
+  if(!username || !name || !email || !password) {
+
+    message(
+      "registerMsg",
       "Please fill in all fields.",
       "error"
     );
@@ -613,21 +610,24 @@ async function registerUser() {
     return;
   }
 
+
   if(password.length < 6) {
 
-    showMessage(
-      "registerMessage",
-      "Password must be at least 6 characters.",
+    message(
+      "registerMsg",
+      "Password must contain at least 6 characters.",
       "error"
     );
 
     return;
   }
 
-  showMessage(
-    "registerMessage",
-    "Creating your account..."
+
+  message(
+    "registerMsg",
+    "Creating account..."
   );
+
 
   const { data, error } =
     await supabaseClient.auth.signUp({
@@ -637,12 +637,10 @@ async function registerUser() {
       password: password,
 
       options: {
-
         data: {
           username: username,
-          full_name: fullName
+          full_name: name
         }
-
       }
 
     });
@@ -650,8 +648,8 @@ async function registerUser() {
 
   if(error) {
 
-    showMessage(
-      "registerMessage",
+    message(
+      "registerMsg",
       error.message,
       "error"
     );
@@ -660,33 +658,35 @@ async function registerUser() {
   }
 
 
-  showMessage(
-    "registerMessage",
-    "Account created successfully. Please check your email if email confirmation is enabled.",
+  message(
+    "registerMsg",
+    "Account created successfully!",
     "success"
   );
 
 }
 
 
-/* =====================================================
+/* ==================================================
    LOGIN
-   ===================================================== */
+   ================================================== */
 
 async function loginUser() {
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document.getElementById("loginEmail")
+      .value.trim();
 
   const password =
-    document.getElementById("loginPassword").value;
+    document.getElementById("loginPassword")
+      .value;
 
 
   if(!email || !password) {
 
-    showMessage(
-      "loginMessage",
-      "Please enter email and password.",
+    message(
+      "loginMsg",
+      "Enter email and password.",
       "error"
     );
 
@@ -694,26 +694,27 @@ async function loginUser() {
   }
 
 
-  showMessage(
-    "loginMessage",
+  message(
+    "loginMsg",
     "Logging in..."
   );
 
 
   const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
+    await supabaseClient.auth
+      .signInWithPassword({
 
-      email: email,
+        email: email,
 
-      password: password
+        password: password
 
-    });
+      });
 
 
   if(error) {
 
-    showMessage(
-      "loginMessage",
+    message(
+      "loginMsg",
       error.message,
       "error"
     );
@@ -722,16 +723,16 @@ async function loginUser() {
   }
 
 
-  await loadUserDashboard();
+  await loadDashboard();
 
 }
 
 
-/* =====================================================
-   LOAD USER
-   ===================================================== */
+/* ==================================================
+   DASHBOARD
+   ================================================== */
 
-async function loadUserDashboard() {
+async function loadDashboard() {
 
   const {
     data: {
@@ -742,16 +743,16 @@ async function loadUserDashboard() {
 
   if(!user) {
 
-    showSection("loginSection");
+    openPage("login");
 
     return;
   }
 
 
-  showSection("dashboardSection");
+  openPage("dashboard");
 
 
-  document.getElementById("userEmail")
+  document.getElementById("email")
     .innerText = user.email || "";
 
 
@@ -761,12 +762,14 @@ async function loadUserDashboard() {
 
   await loadTasks();
 
+  await loadPaymentInfo();
+
 }
 
 
-/* =====================================================
+/* ==================================================
    PROFILE
-   ===================================================== */
+   ================================================== */
 
 async function loadProfile(userId) {
 
@@ -792,7 +795,7 @@ async function loadProfile(userId) {
   }
 
 
-  document.getElementById("welcomeUser")
+  document.getElementById("welcome")
     .innerText =
       "Welcome, " +
       (data.username || data.full_name || "User");
@@ -805,9 +808,9 @@ async function loadProfile(userId) {
 }
 
 
-/* =====================================================
+/* ==================================================
    WALLET
-   ===================================================== */
+   ================================================== */
 
 async function loadWallet(userId) {
 
@@ -833,25 +836,31 @@ async function loadWallet(userId) {
   }
 
 
-  const balance =
+  const amount =
     Number(data.balance || 0).toFixed(2);
 
 
-  document.getElementById("balanceAmount")
-    .innerText = "৳" + balance;
+  document.getElementById("balance")
+    .innerText = "৳" + amount;
 
+  document.getElementById("balance2")
+    .innerText = "৳" + amount;
 
-  document.getElementById("balancePageAmount")
-    .innerText = "৳" + balance;
+  document.getElementById("walletBalance")
+    .innerText = "৳" + amount;
 
 }
 
 
-/* =====================================================
+/* ==================================================
    TASKS
-   ===================================================== */
+   ================================================== */
 
 async function loadTasks() {
+
+  const list =
+    document.getElementById("taskList");
+
 
   const {
     data,
@@ -867,10 +876,6 @@ async function loadTasks() {
     .order("created_at", {
       ascending: false
     });
-
-
-  const list =
-    document.getElementById("taskList");
 
 
   if(error) {
@@ -906,9 +911,9 @@ async function loadTasks() {
 
     div.innerHTML = `
 
-      <h3>${escapeHtml(task.title)}</h3>
+      <h3>${safe(task.title)}</h3>
 
-      <p>${escapeHtml(task.description || "")}</p>
+      <p>${safe(task.description || "")}</p>
 
       <p>
         <strong>Reward:</strong>
@@ -918,7 +923,7 @@ async function loadTasks() {
       ${
         task.task_url
         ?
-        `<button onclick="window.open('${encodeURI(task.task_url)}','_blank')">
+        `<button onclick="window.open('${safe(task.task_url)}','_blank')">
           Open Task
         </button>`
         :
@@ -935,9 +940,83 @@ async function loadTasks() {
 }
 
 
-/* =====================================================
+/* ==================================================
+   PAYMENT INFO
+   ================================================== */
+
+async function loadPaymentInfo() {
+
+  const box =
+    document.getElementById("depositInfo");
+
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+
+    .from("payment_methods")
+
+    .select("*")
+
+    .eq("is_active", true);
+
+
+  if(error) {
+
+    box.innerHTML =
+      "<p>Payment information unavailable.</p>";
+
+    return;
+  }
+
+
+  if(!data || data.length === 0) {
+
+    box.innerHTML =
+      "<p>No payment method available.</p>";
+
+    return;
+  }
+
+
+  box.innerHTML = "";
+
+
+  data.forEach(method => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "task";
+
+
+    div.innerHTML = `
+
+      <h3>${safe(method.name)}</h3>
+
+      <p>
+        <strong>Number:</strong>
+        ${safe(method.account_number)}
+      </p>
+
+      <p>
+        ${safe(method.instructions || "")}
+      </p>
+
+    `;
+
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* ==================================================
    DEPOSIT
-   ===================================================== */
+   ================================================== */
 
 async function submitDeposit() {
 
@@ -950,7 +1029,7 @@ async function submitDeposit() {
 
   if(!user) {
 
-    showSection("loginSection");
+    openPage("login");
 
     return;
   }
@@ -958,24 +1037,21 @@ async function submitDeposit() {
 
   const amount =
     Number(
-      document.getElementById("depositAmount").value
+      document.getElementById("depositAmount")
+        .value
     );
 
 
-  const method =
-    document.getElementById("depositMethod").value;
-
-
-  const transactionId =
-    document.getElementById("depositTransaction")
+  const txn =
+    document.getElementById("depositTxn")
       .value.trim();
 
 
-  if(!amount || amount <= 0 || !transactionId) {
+  if(!amount || amount <= 0 || !txn) {
 
-    showMessage(
-      "depositMessage",
-      "Please enter amount and transaction ID.",
+    message(
+      "depositMsg",
+      "Enter amount and transaction ID.",
       "error"
     );
 
@@ -995,9 +1071,9 @@ async function submitDeposit() {
 
       amount: amount,
 
-      payment_method: method,
+      payment_method: "bKash",
 
-      transaction_id: transactionId,
+      transaction_id: txn,
 
       status: "pending"
 
@@ -1006,8 +1082,8 @@ async function submitDeposit() {
 
   if(error) {
 
-    showMessage(
-      "depositMessage",
+    message(
+      "depositMsg",
       error.message,
       "error"
     );
@@ -1016,25 +1092,27 @@ async function submitDeposit() {
   }
 
 
-  showMessage(
-    "depositMessage",
-    "Deposit request submitted successfully. Admin will review it.",
+  message(
+    "depositMsg",
+    "Deposit request submitted successfully.",
     "success"
   );
 
 
-  document.getElementById("depositAmount").value = "";
+  document.getElementById("depositAmount")
+    .value = "";
 
-  document.getElementById("depositTransaction").value = "";
+  document.getElementById("depositTxn")
+    .value = "";
 
 }
 
 
-/* =====================================================
+/* ==================================================
    WITHDRAW
-   ===================================================== */
+   ================================================== */
 
-async function submitWithdrawal() {
+async function submitWithdraw() {
 
   const {
     data: {
@@ -1045,7 +1123,7 @@ async function submitWithdrawal() {
 
   if(!user) {
 
-    showSection("loginSection");
+    openPage("login");
 
     return;
   }
@@ -1053,12 +1131,14 @@ async function submitWithdrawal() {
 
   const amount =
     Number(
-      document.getElementById("withdrawAmount").value
+      document.getElementById("withdrawAmount")
+        .value
     );
 
 
   const method =
-    document.getElementById("withdrawMethod").value;
+    document.getElementById("withdrawMethod")
+      .value;
 
 
   const account =
@@ -1068,9 +1148,9 @@ async function submitWithdrawal() {
 
   if(!amount || amount <= 0 || !account) {
 
-    showMessage(
-      "withdrawMessage",
-      "Please enter all withdrawal information.",
+    message(
+      "withdrawMsg",
+      "Please enter all information.",
       "error"
     );
 
@@ -1094,9 +1174,9 @@ async function submitWithdrawal() {
 
   if(walletError) {
 
-    showMessage(
-      "withdrawMessage",
-      "Unable to check your balance.",
+    message(
+      "withdrawMsg",
+      "Unable to check balance.",
       "error"
     );
 
@@ -1106,8 +1186,8 @@ async function submitWithdrawal() {
 
   if(Number(wallet.balance) < amount) {
 
-    showMessage(
-      "withdrawMessage",
+    message(
+      "withdrawMsg",
       "Insufficient balance.",
       "error"
     );
@@ -1139,8 +1219,8 @@ async function submitWithdrawal() {
 
   if(error) {
 
-    showMessage(
-      "withdrawMessage",
+    message(
+      "withdrawMsg",
       error.message,
       "error"
     );
@@ -1149,52 +1229,54 @@ async function submitWithdrawal() {
   }
 
 
-  showMessage(
-    "withdrawMessage",
+  message(
+    "withdrawMsg",
     "Withdrawal request submitted successfully.",
     "success"
   );
 
 
-  document.getElementById("withdrawAmount").value = "";
+  document.getElementById("withdrawAmount")
+    .value = "";
 
-  document.getElementById("withdrawAccount").value = "";
+  document.getElementById("withdrawAccount")
+    .value = "";
 
 }
 
 
-/* =====================================================
+/* ==================================================
    LOGOUT
-   ===================================================== */
+   ================================================== */
 
 async function logoutUser() {
 
   await supabaseClient.auth.signOut();
 
-  showSection("homeSection");
+  openPage("home");
 
 }
 
 
-/* =====================================================
-   SECURITY HELPER
-   ===================================================== */
+/* ==================================================
+   BASIC HTML SAFETY
+   ================================================== */
 
-function escapeHtml(text) {
+function safe(value) {
 
   const div =
     document.createElement("div");
 
-  div.textContent = text || "";
+  div.textContent = value || "";
 
   return div.innerHTML;
 
 }
 
 
-/* =====================================================
-   CHECK EXISTING LOGIN
-   ===================================================== */
+/* ==================================================
+   CHECK LOGIN
+   ================================================== */
 
 async function checkLogin() {
 
@@ -1207,11 +1289,11 @@ async function checkLogin() {
 
   if(session) {
 
-    await loadUserDashboard();
+    await loadDashboard();
 
   } else {
 
-    showSection("homeSection");
+    openPage("home");
 
   }
 
@@ -1219,23 +1301,6 @@ async function checkLogin() {
 
 
 checkLogin();
-
-
-/* =====================================================
-   AUTH STATE
-   ===================================================== */
-
-supabaseClient.auth.onAuthStateChange(
-  async (event, session) => {
-
-    if(event === "SIGNED_OUT") {
-
-      showSection("homeSection");
-
-    }
-
-  }
-);
 
 </script>
 
